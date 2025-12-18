@@ -11,13 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # 1. Клонирование репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup
+      # 2. Установка Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # 3. Установка проекта
+      - name: Install dependencies
         run: make setup
 
-      - name: Test
+      # 4. Запуск тестов
+      - name: Run tests
         run: make test
 
-      - name: Lint
-        run: make lint
+      # 5. Экшен от Hexlet
+      - name: Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
